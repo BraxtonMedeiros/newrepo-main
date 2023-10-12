@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "pgOptions": {
+                "ssl": true
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "PostgreSQL",
+            "name": "render.com",
+            "connectString": "postgres://braxtondb:eNpoE6RA0b5swthWfHt10zhiRnIUGZTz@dpg-ckg8sumafg7c73biko6g-a.oregon-postgres.render.com/braxtondb"
+        }
+    ]
+}
