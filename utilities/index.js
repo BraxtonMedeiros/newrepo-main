@@ -32,7 +32,7 @@ Util.buildClassificationGrid = async function(data){
     if(data.length > 0){
       grid = '<ul id="inv-display">'
       data.forEach(vehicle => { 
-        grid += '<li>'
+        grid += '<li class="carCard">'
         grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
         + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
         + 'details"><img src="' + vehicle.inv_thumbnail 
@@ -56,5 +56,43 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
   }
+
+  Util.buildVehicleGrid = async function(data) {
+    if (data.length > 0) {
+        const vehicle = data[0];
+        const price = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        }).format(vehicle.inv_price);
+
+        const mileage = new Intl.NumberFormat('en-US').format(vehicle.inv_miles);
+
+        return `
+            <div id="indiviual_view">
+              <div id="carPic">
+                <img class="pic" src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}">
+              </div>
+              <div id="carInfo">
+                <p>Make: ${vehicle.inv_make}</p>
+                <p>Model: ${vehicle.inv_model}</p>
+                <p>Year: ${vehicle.inv_year}</p>
+                <p>Price: ${price}</p>
+                <p>Mileage: ${mileage} miles</p>
+                <p>Description: ${vehicle.inv_description}</p>
+              </div>
+            </div>
+        `;
+    } else {
+        return '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+    }
+}
+
+
+  /* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util

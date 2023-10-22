@@ -125,6 +125,29 @@ button {
   color: #fff;
 }
 
+#inv-display {
+  padding-left: 0;
+}
+
+.pic {
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
+
+.carCard {
+  list-style: none;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  padding: 20px 30px;
+  margin: 5%;
+}
+
+
 /* Larger View */
 
 /* Styles for smaller screens (up to 768px) */
@@ -185,4 +208,38 @@ button {
   #delorean {
     margin: 0 auto;
   }
+
+  #inv-display {
+    grid-template-columns: 1fr;
+  }
+
+  #indiviual_view {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .pic {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  }
+
+  #carPic {
+    grid-column: 1/2;
+  }
+  
+  #carInfo {
+    grid-column: 2/3;
+  }
+
+  /* #carPic {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+  } */
 }

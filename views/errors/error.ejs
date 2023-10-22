@@ -1,0 +1,9 @@
+<% if (title) { %>
+    <h1 id="errorTitle"><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+    
+    <p id="errorMessage"><%- message %></p>
+    <img id="errorImg" src="<%= imgSrc %>" alt="Funny confused gif">
+    <p>Click <a href="/">*here*</a> to go back!</p>
