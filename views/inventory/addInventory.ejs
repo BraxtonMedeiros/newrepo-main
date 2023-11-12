@@ -1,0 +1,55 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+  </ul>
+<% } %>
+
+<form action="/inv/addNewInventory" method="post" class="user-form" id="add-inventory-form">
+  <label for="classification_id">Classification:</label>
+  <select name="classification_id" id="classification_id" required>
+      <option value="" disabled <%= (!locals.classification_id) ? ' selected' : '' %>>Select a Classification</option>
+      <% options.forEach(option => { %>
+          <option value="<%= option.value %>" <%= (option.value == locals.classification_id) ? 'selected' : '' %>>
+              <%= option.label %>
+          </option>
+      <% }); %>
+  </select>
+  <label for="inv_make">Make:</label>
+  <input type="text" name="inv_make" id="inv_make" required placeholder="Ex: Honda" minlength="3" value="<%= locals.inv_make %>">
+
+  <label for="inv_model">Model:</label>
+  <input type="text" name="inv_model" id="inv_model" required placeholder="Ex: Civic" minlength="3" value="<%= locals.inv_model %>">
+
+  <label for="inv_year">Year:</label>
+  <input type="number" name="inv_year" id="inv_year" min="1900" required placeholder="Ex: 2012" value="<%= locals.inv_year %>">
+
+  <label for="inv_description">Description:</label>
+  <textarea name="inv_description" id="inv_description" required cols="30" rows="8" minlength="3" maxlength="1000" placeholder="Write a description..."><%= locals.inv_description %></textarea>
+
+  <label for="inv_image">Image Path:</label>
+  <input type="text" name="inv_image" id="inv_image" required placeholder="Ex: /images/vehicles/no-image.png" value="<%= locals.inv_image %>">
+
+  <label for="inv_thumbnail">Thumbnail Image Path:</label>
+  <input type="text" name="inv_thumbnail" id="inv_thumbnail" required placeholder="Ex: /images/vehicles/no-image-tn.png" value="<%= locals.inv_thumbnail %>">
+
+  <label for="inv_price">Price:</label>
+  <input type="number" name="inv_price" id="inv_price" step="0.01" min="0" required placeholder="Ex: 45000" value="<%= locals.inv_price %>">
+
+  <label for="inv_miles">Miles:</label>
+  <input type="number" name="inv_miles" id="inv_miles" min="0" required placeholder="Ex: 160500" value="<%= locals.inv_miles %>">
+
+  <label for="inv_color">Color:</label>
+  <input type="text" name="inv_color" id="inv_color" required placeholder="Ex: black (lowercase only)" minlength="3" value="<%= locals.inv_color %>">
+
+  <button type="submit">Add Vehicle</button>
+</form>

@@ -15,8 +15,10 @@ header a {
   }
 
 #tools {
-  font-size: 15px;
-  float: right;
+  font-size: 150%;
+  position: absolute;
+  top: 10px; /* Adjust the top value as needed */
+  right: 10px; /* Adjust the right value as needed */
 }
 
 .stuff li {
@@ -147,6 +149,95 @@ button {
   margin: 5%;
 }
 
+/* Initially red border for invalid fields */
+.user-form input:invalid {
+  border: 2px solid red;
+}
+
+/* Default border for valid fields */
+.user-form input:valid {
+  border: 1px solid #ccc;
+}
+
+/* Change border for the form when all inputs are valid */
+.user-form:valid {
+  border: 2px solid #ccc; /* Change border when the entire form is valid */
+}
+.user-form {
+  max-width: 400px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.user-form.validated {
+  border: 2px solid #ccc; /* Change border to default when inputs are validated */
+}
+
+#registration-h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+#register-button-div {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: #1ecbe1;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button[type="submit"]:hover {
+  background-color: #0a80a6;
+  color: #fff;
+}
+
+.notice {
+  background: #f2dede;
+  color: #a94442;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.pushinP {
+  text-align: center;
+}
+
+span {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
 
 /* Larger View */
 
@@ -234,12 +325,4 @@ button {
   #carInfo {
     grid-column: 2/3;
   }
-
-  /* #carPic {
-    width: 80%;
-    display: block;
-    margin: 0 auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-  } */
 }

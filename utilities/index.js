@@ -87,6 +87,15 @@ Util.buildClassificationGrid = async function(data){
     }
 }
 
+Util.buildClassificationOptions = async function (req, res, next) {
+  let data = await invModel.getClassifications();
+    let options = data.rows.map(row => ({
+        value: row.classification_id,
+        label: row.classification_name,
+    }));
+    return options;
+}
+
 
   /* ****************************************
  * Middleware For Handling Errors

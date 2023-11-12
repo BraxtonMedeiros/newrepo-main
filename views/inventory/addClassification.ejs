@@ -1,0 +1,24 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+  </ul>
+<% } %>
+
+<form action="/inv/addNewClassification" method="post" class="user-form" id="add-classification-form">
+  <label for="classification_name">Classification Name</label>
+  <p>Name must be only alphabetic characters and have no spaces</p>
+  <input type="text" required id="classification_name" name="classification_name" pattern="^[A-Za-z]+$" placeholder="Ex: Electric">
+
+  <button type="submit" id="add-classification-btn">Add Classification</button>
+
+</form>

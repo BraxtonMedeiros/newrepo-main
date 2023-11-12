@@ -13,6 +13,10 @@ const static = require("./routes/static")
 const inventroyRoute = require("./routes/inventroyRoute")
 const baseController = require("./controllers/baseController")
 const utilities = require('./utilities/')
+const session = require("express-session")
+const pool = require('./database/')
+const accountRoute = require("./routes/accountRoute")
+const bodyParser = require("body-parser")
 
 
 /* ***********************
@@ -22,6 +26,30 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
 /* ***********************
  * Routes
  *************************/
@@ -29,6 +57,7 @@ app.use(static)
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventroyRoute);
+app.use("/account", accountRoute);
 
 // Error routes
 app.use(async (err, req, res, next) => {
@@ -45,7 +74,7 @@ app.use(async (err, req, res, next) => {
 app.get("/error", baseController.buildCaughtError);
 
 app.use(async (req,res, next) => {
-  next({status: 404, message: 'Oops! It looks like Johnny took a wrong turn. The page you are searching for is not here :/', imgSrc: '/images/site/images.jpeg'})
+  next({status: 404, message: 'Oops! The page you are searching for is not here :/', imgSrc: '/images/site/images.jpeg'})
 })
 
 /* ***********************
