@@ -73,5 +73,13 @@ async function registerAccount(req, res) {
     })
   }
 }
+
+/* ****************************************
+*  Process Logout
+* *************************************** */
+async function logout(req, res) {
+  req.session.destroy()
+  res.redirect("/")
+}
   
-  module.exports = { buildLogin, buildRegister, registerAccount }
+  module.exports = { buildLogin, buildRegister, registerAccount, logout }

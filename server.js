@@ -20,14 +20,6 @@ const bodyParser = require("body-parser")
 
 
 /* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
-
-
-/* ***********************
  * Middleware
  * ************************/
 app.use(session({
@@ -49,6 +41,14 @@ app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+/* ***********************
+ * View Engine and Templates
+ *************************/
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout") // not at views root
+
 
 /* ***********************
  * Routes
