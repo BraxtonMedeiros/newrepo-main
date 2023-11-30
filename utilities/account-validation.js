@@ -68,5 +68,45 @@ validate.checkRegData = async (req, res, next) => {
     }
     next()
   }
+
+  /* ******************************
+  * Login Data Validation Rules
+  * ***************************** */
+  validate.loginRules = () => {
+      return [
+        // email is required and must be string
+        body("account_email")
+          .trim()
+          .isLength({ min: 1 })
+          .withMessage("Please provide an email address."), // on error this message is sent.
+    
+        // password is required and must be string
+        body("account_password")
+          .trim()
+          .isLength({ min: 1 })
+          .withMessage("Please provide a password."), // on error this message is sent.
+      ]
+    }
+  
+    /* ******************************
+    * Check data and return errors or continue to login
+    * ***************************** */
+    validate.checkLoginData = async (req, res, next) => {
+      const { account_email, account_password } = req.body
+      let errors = []
+      errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/login", {
+          errors,
+          title: "Login",
+          nav,
+          account_email,
+          account_password,
+        })
+        return
+      }
+      next()
+    }
   
   module.exports = validate
