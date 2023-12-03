@@ -4,6 +4,8 @@
     res.redirect('/');
 } %>
 
+<%- messages() %>
+
 <% if (errors) { %>
     <div style="text-align: center; color: #d9534f; margin-bottom: 20px;">
         <ul>
@@ -23,3 +25,20 @@
         <a href="/inv/addNewInventory" style="text-decoration: none; color: #fff; font-weight: bold; background-color: #337ab7; padding: 10px 20px; border-radius: 5px; display: block;">Add New Inventory</a>
     </li>
 </ul>
+
+<div id="manage-section">
+    <h2>Manage Inventory</h2>
+    <p>Select a classification from the list</p>
+    <select name="classification_id" id="classification_id" required>
+        <option value="" disabled <%= (!locals.classification_id) ? ' selected' : '' %>>Select a Classification</option>
+        <% options.forEach(option => { %>
+            <option value="<%= option.value %>" <%= (option.value == locals.classification_id) ? 'selected' : '' %>>
+                <%= option.label %>
+            </option>
+        <% }); %>
+    </select>
+    <table id="inventoryDisplay"></table>
+</div>
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+<script src="../../js/inventory.js"></script>
