@@ -122,6 +122,7 @@ Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
+  res.locals.loggedin = false
   if (req.cookies.jwt) {
    jwt.verify(
     req.cookies.jwt,
@@ -142,8 +143,8 @@ Util.checkJWTToken = (req, res, next) => {
  }
 
 /* ****************************************
- *  Check Login
- * ************************************ */
+*  Check Login
+* ************************************ */
 Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next()
@@ -152,5 +153,29 @@ Util.checkLogin = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+/* ****************************************
+*  Check Admin
+* ************************************ */
+Util.checkAdminAccess = (req, res, next) => {
+  const accountData = res.locals.accountData;
+  // Check if the user is logged in and has an account type
+  if (accountData && accountData.account_type) {
+    // Check if the account type is "Employee" or "Admin"
+    if (accountData.account_type == "Employee" || accountData.account_type == "Admin") {
+      // User has the required access, allow access to the next middleware or route
+      next();
+    } else {
+      // User does not have the required access, redirect to login with appropriate message
+      req.flash("error", "You do not have permission to access this resource.");
+      res.redirect("/account/login");
+    }
+  } else {
+    // User is not logged in, redirect to login with appropriate message
+    req.flash("error", "Please log in to access this resource.");
+    res.redirect("/account/login");
+  }
+};
+
 
 module.exports = Util

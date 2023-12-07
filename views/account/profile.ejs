@@ -1,0 +1,47 @@
+<h2>Welcome <%- account_firstname %></h2>
+
+<% if (title) { %>
+    <h1 class="title"><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+
+<div class="flash-message-container">
+    <%- messages() %>
+</div>
+
+
+<% if (errors) { %>
+    <ul class="register-flash-errors">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <%  }) %>
+    </ul>
+<% } %>
+
+<div id="profileCont">
+    <div id="accountInfo">
+        <h2 class="accountH2">Account Information</h2>
+        <ul>
+            <li><h4>Account Name: <%- account_firstname %> <%- account_lastname%></h4></li>
+            <li><h4>Account Email: <%- account_email %></h4></li>
+            <li><h4>Social Security Number: 111 209 9999</h4></li>
+            <li><h4>Bank Account Routing Number: 13432837499</h4></li>
+    
+        </ul>
+        <a href="/account/update/<%- account_id %>" id="accountUpdateLink"><div><h4>Update Account</h4></div></a>
+    </div>
+    <!-- <%= account_id %> -->
+    
+    
+    <% if (account_type === "Admin" || account_type === "Employee") { %>
+        <div id="managerAccount">
+            <h2>Inventory Management</h2>
+            <a href="/inv/"><div><h4>Click here to manage</h4></div></a>
+        </div>
+    <% } else { %>
+    
+    <% } %>
+</div>
+

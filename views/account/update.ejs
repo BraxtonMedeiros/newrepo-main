@@ -1,0 +1,141 @@
+<% if (title) { %>
+    <h1 id="register-title"><%= title %></h1>
+<% } else {
+      res.redirect('/')
+    } %>
+
+
+
+<div class="flash-message-container">
+    <%- messages() %>
+</div>
+
+
+<% if (errors) { %>
+    <ul class="register-flash-errors">
+    <% errors.array().forEach(error => { %>
+        <li><%= error.msg %></li>
+    <%  }) %>
+    </ul>
+<% } %>
+
+
+
+<form id="registerForm" class="accountForm" action="/account/updateInfo" method="post">
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="account_firstname" required value="<%= account_firstname %>"><br><br>
+
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="account_lastname" required value="<%= account_lastname %>"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="account_email" required placeholder="Enter a valid email address" value="<%= account_email %>"><br><br>
+    
+    <input type="submit" value="Update Account Info" id="UpdateAccount" disabled>
+    <input type="hidden" name="account_id"
+    <% if(account_id) { %> value="<%- account_id %>"
+    <% } %>>
+</form>
+
+<br>
+<br>
+
+<form id="passwordForm" class="accountForm" action="/account/updatePassword" method="post">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="account_password" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}" required placeholder="Enter a valid password" oninput="checkPasswordConditions()">
+    <div id="passwordError" class="error-message">
+        <ul>
+          <li id="lengthCondition">At least 12 characters</li>
+          <li id="capitalLetterCondition">At least 1 capital letter</li>
+          <li id="numberCondition">At least 1 number</li>
+          <li id="specialCharCondition">At least 1 special character</li>
+        </ul>
+      </div>
+    
+    <!-- Password visibility toggle -->
+    <div id="register-checkbox">
+        <input type="checkbox" id="showPassword">
+        <label for="showPassword">Show Password</label><br><br>
+    </div>
+
+    <input type="submit" value="Update Password" id="updatePassword" disabled>
+    <input type="hidden" name="account_id"
+    <% if(account_id) { %> value="<%- account_id %>"
+    <% } %>>
+</form>
+
+<script>
+const passwordField = document.getElementById("password");
+const showPasswordToggle = document.getElementById("showPassword");
+
+showPasswordToggle.addEventListener("change", function () {
+    if (showPasswordToggle.checked) {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+});
+
+function checkFormConditions() {
+    var firstNameInput = document.getElementById("first_name");
+    var lastNameInput = document.getElementById("last_name");
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+    var registerButton = document.getElementById("registerButton");
+
+    // Check all form field conditions
+    var isFirstNameValid = firstNameInput.value.trim() !== "";
+    var isLastNameValid = lastNameInput.value.trim() !== "";
+    var isEmailValid = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(emailInput.value);
+    var isPasswordValid = checkPasswordConditions(); // Check password conditions as before
+
+    // Enable the button if all conditions are met
+    if (isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid) {
+        registerButton.disabled = false;
+    } else {
+        // registerButton.disabled = true;
+    }
+}
+
+function checkPasswordConditions() {
+    var passwordInput = document.getElementById("password");
+    var lengthCondition = document.getElementById("lengthCondition");
+    var capitalLetterCondition = document.getElementById("capitalLetterCondition");
+    var numberCondition = document.getElementById("numberCondition");
+    var specialCharCondition = document.getElementById("specialCharCondition");
+    var passwordError = document.getElementById("passwordError");
+
+    var isLengthMet = passwordInput.value.length >= 12;
+    var isCapitalMet = /[A-Z]/.test(passwordInput.value);
+    var isNumberMet = /[0-9]/.test(passwordInput.value);
+    var isSpecialCharMet = /[!@#$%^&*]/.test(passwordInput.value);
+
+    lengthCondition.style.color = isLengthMet ? 'green' : 'red';
+    capitalLetterCondition.style.color = isCapitalMet ? 'green' : 'red';
+    numberCondition.style.color = isNumberMet ? 'green' : 'red';
+    specialCharCondition.style.color = isSpecialCharMet ? 'green' : 'red';
+
+    var allConditionsMet = isLengthMet && isCapitalMet && isNumberMet && isSpecialCharMet;
+    var registerButton = document.getElementById("registerButton");
+    var allConditionsMet = isLengthMet && isCapitalMet && isNumberMet && isSpecialCharMet;
+
+    if (allConditionsMet) {
+        passwordError.style.display = "none";
+        registerButton.disabled = false;
+    } else {
+        passwordError.style.display = "block";
+        // registerButton.disabled = true;
+    }
+
+    return isLengthMet && isCapitalMet && isNumberMet && isSpecialCharMet;
+}
+
+const forms = document.querySelectorAll(".accountForm");
+
+forms.forEach((form) => {
+  form.addEventListener("change", function () {
+    const updateInput = form.querySelector("input[type='submit']");
+    updateInput.removeAttribute("disabled");
+  });
+});
+</script>

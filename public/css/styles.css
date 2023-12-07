@@ -36,18 +36,25 @@ nav ul {
   list-style-type: none; /* Remove bullets/numbers from list */
   padding: 0; /* Remove default padding */
   margin: 0; /* Remove default margin */
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
 }
 
 /* Style the <li> elements within the <ul> */
 nav li {
-  display: inline; /* Display list items horizontally */
   margin-right: 20px; /* Spacing between list items */
+  margin-bottom: 10px; /* Adjusted spacing to create a vertical margin */
+  white-space: nowrap; /* Prevent text from wrapping in the middle of a word */
 }
 
 /* Style the <a> links within the <li> elements */
 nav a {
   text-decoration: none; /* Remove underlines from links */
   color: #fff; /* Text color for links */
+  padding: 5px 10px; /* Padding for each link */
+  border-radius: 5px; /* Rounded corners */
+  background-color: grey; /* Background color for links */
+  margin-top: 10px; /* Adjusted top margin for spacing between links */
 }
 
 /* Hero */
@@ -239,7 +246,85 @@ span {
 }
 
 
+/* Style for Title Section */
+.title {
+  color: #555;
+  font-size: 28px;
+  margin-top: 10px;
+}
 
+/* Style for Error Messages */
+.register-flash-errors {
+  color: #a94442;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+/* Style for Account Information Section */
+#accountInfo {
+  margin-top: 20px;
+}
+
+/* Style for Account Information List */
+#accountInfo ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Style for Account Information List Items */
+#accountInfo ul li {
+  margin-bottom: 10px;
+}
+
+/* Style for Update Account Link */
+#accountUpdateLink {
+  display: inline-block;
+  background-color: #337ab7;
+  color: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Style for Manager Account Section */
+#managerAccount {
+  margin-top: 20px;
+}
+
+/* Style for Manager Account Link */
+#managerAccount a {
+  display: inline-block;
+  background-color: #337ab7;
+  color: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Container for Profile */
+#profileCont {
+  text-align: center;
+}
+
+#accountInfo {
+  text-align: center;
+}
+
+.accountH2 {
+  text-align: center;
+}
+
+h2, h1 {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+}
+
+#manage-section {
+  text-align: center;
+} 
 
 /* Larger View */
 
